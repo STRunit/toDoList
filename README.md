@@ -1,3 +1,3 @@
-# todo-list
+# toDoList
 
-To do list project in weekSeven
+To do list project started in weekSeven.
