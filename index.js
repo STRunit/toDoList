@@ -42,7 +42,7 @@ const createBoard = (title, number, color) => {
   const circle = document.createElement("div");
   const label = document.createElement("h3");
   const count = document.createElement("p");
-  const listContainer = document.createElement("div");
+  const taskListContainer = document.createElement("div");
 
   board.className = "board";
   circle.classList.add("circle");
@@ -50,7 +50,7 @@ const createBoard = (title, number, color) => {
   boardHeader.className = "boardHeader";
   headerTitle.className = "headerTitle";
   count.className = "counter";
-  listContainer.className = "listContainer";
+  taskListContainer.className = "taskListContainer";
 
   label.innerText = title;
   count.innerText = number;
@@ -62,25 +62,36 @@ const createBoard = (title, number, color) => {
   boardHeader.appendChild(count);
 
   board.appendChild(boardHeader);
-  board.appendChild(listContainer);
+  board.appendChild(taskListContainer);
 
   boardContainer.appendChild(board);
 };
 
 createBoard("To Do", 4, "gray");
-createBoard("In Progress", 4, "yellow");
-createBoard("Done", 4, "green");
-createBoard("Blocked", 4, "red");
+createBoard("In Progress", 0, "yellow");
+createBoard("Done", 0, "green");
+createBoard("Blocked", 0, "red");
 
 const createTask = (text) => {
-  const listContainer = document.getElementsByClassName("listContainer")[0];
-  const list = document.createElement("div");
+  const taskListContainer =
+    document.getElementsByClassName("taskListContainer")[0];
+  const taskList = document.createElement("div");
+  const taskContainer = document.createElement("div");
   const circle = document.createElement("div");
   const task = document.createElement("p");
+  const taskButtonContainer = document.createElement("div");
+  const editButton = document.createElement("button");
   const edit = document.createElement("div");
+  const removeButton = document.createElement("button");
   const remove = document.createElement("div");
 
-  list.className = "list";
+  taskList.className = "taskList";
+  taskContainer.className = "taskContainer";
+  taskButtonContainer.className = "taskButtonContainer";
+  edit.className = "edit";
+  remove.className = "remove";
+  editButton.classList.add("button");
+  removeButton.classList.add("button");
   circle.classList.add("circle");
   circle.classList.add("outline");
 
@@ -88,12 +99,19 @@ const createTask = (text) => {
   edit.innerHTML = editSvg;
   remove.innerHTML = removeSvg;
 
-  list.appendChild(circle);
-  list.appendChild(task);
-  list.appendChild(edit);
-  list.appendChild(remove);
+  editButton.appendChild(edit);
+  removeButton.appendChild(remove);
 
-  listContainer.appendChild(list);
+  taskContainer.appendChild(circle);
+  taskContainer.appendChild(task);
+
+  taskButtonContainer.appendChild(editButton);
+  taskButtonContainer.appendChild(removeButton);
+
+  taskList.appendChild(taskContainer);
+  taskList.appendChild(taskButtonContainer);
+
+  taskListContainer.appendChild(taskList);
 };
 
 createTask("[loan-managament] - Add card component");
