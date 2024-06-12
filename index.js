@@ -67,9 +67,11 @@ const createBoard = (title, number, color) => {
   boardContainer.appendChild(board);
 };
 
-const createTask = (text) => {
-  const listContainer = document.getElementsByClassName("listContainer")[0];
-  const list = document.createElement("div");
+const createTask = (data, index) => {
+  const taskListContainer =
+    document.getElementsByClassName("taskListContainer")[index];
+  const taskContainer = document.createElement("div");
+  const taskList = document.createElement("div");
   const circle = document.createElement("div");
   const task = document.createElement("p");
   const taskButtonContainer = document.createElement("div");
