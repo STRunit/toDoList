@@ -67,13 +67,8 @@ const createBoard = (title, number, color) => {
   boardContainer.appendChild(board);
 };
 
-createBoard("To Do", 4, "gray");
-createBoard("In Progress", 4, "yellow");
-createBoard("Done", 4, "green");
-createBoard("Blocked", 4, "red");
-
-const createTask = (text) => {
-  const listContainer = document.getElementsByClassName("listContainer")[0];
+const createTask = (data, index) => {
+  const listContainer = document.getElementsByClassName("listContainer")[index];
   const list = document.createElement("div");
   const circle = document.createElement("div");
   const task = document.createElement("p");
@@ -84,7 +79,7 @@ const createTask = (text) => {
   circle.classList.add("circle");
   circle.classList.add("outline");
 
-  task.innerText = text;
+  task.innerHTML = data;
   edit.innerHTML = editSvg;
   remove.innerHTML = removeSvg;
 
@@ -96,7 +91,76 @@ const createTask = (text) => {
   listContainer.appendChild(list);
 };
 
-createTask("[loan-managament] - Add card component");
-createTask("Finish reading Chapter 5 of The Great Gatsby");
-createTask("Start researching for vacation destinations");
-createTask("Review notes for upcoming exam");
+const board = [
+  {
+    title: "Todo",
+    bgcolor: "white",
+  },
+  {
+    title: "In Progress",
+    bgcolor: "yellow",
+  },
+  {
+    title: "Done",
+    bgcolor: "green",
+  },
+  {
+    title: "Blocked",
+    bgcolor: "red",
+  },
+];
+
+const data = {
+  todo: [
+    {
+      description: "learn javascript step by step",
+    },
+  ],
+  inProgress: [
+    {
+      description: "study for four hours",
+    },
+    {
+      description: "study for four hours",
+    },
+    {
+      description: "study for four hours",
+    },
+    {
+      description: "study for four hours",
+    },
+    {
+      description: "study for four hours",
+    },
+  ],
+  done: [
+    {
+      description: "come to class at 2:30 pm",
+    },
+  ],
+  blocked: [
+    {
+      description: "absent from class",
+    },
+    {
+      description: "absent from class",
+    },
+    {
+      description: "absent from class",
+    },
+    {
+      description: "absent from class",
+    },
+  ],
+};
+
+board.map((el) => {
+  createBoard(el.title, 5, el.bgcolor);
+  console.log(el);
+});
+
+const keys = Object.keys(data);
+
+keys.map((el, index) =>
+  data[el].map((task) => createTask(task.description, index))
+);
