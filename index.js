@@ -1,13 +1,13 @@
 const body = document.getElementsByTagName("body")[0];
 
-const createElement = (tagName, classList, innerText = "") => {
+const createElement = (tagName, classList, innerHTML = "") => {
   const element = document.createElement(tagName);
 
   classList.forEach((className) => {
     element.classList.add(className);
   });
 
-  element.innerText = innerText;
+  element.innerHTML = innerHTML;
 
   return element;
 };
@@ -47,18 +47,15 @@ const createBoard = (title, number, color) => {
   const boardHeader = createElement("div", ["boardHeader"]);
   const headerTitle = createElement("div", ["headerTitle"]);
   const circle = createElement("div", ["circle", color]);
-  const label = createElement("h3", ["label"], `${title}`);
-  const count = createElement("p", ["count"], `${number}`);
+  const label = createElement("h3", ["label"], title);
+  const counter = createElement("p", ["counter"], number);
   const taskListContainer = createElement("div", ["taskListContainer"]);
-
-  // circle.classList.add("circle");
-  // circle.classList.add(color);
 
   headerTitle.appendChild(circle);
   headerTitle.appendChild(label);
 
   boardHeader.appendChild(headerTitle);
-  boardHeader.appendChild(count);
+  boardHeader.appendChild(counter);
 
   board.appendChild(boardHeader);
   board.appendChild(taskListContainer);
@@ -69,29 +66,15 @@ const createBoard = (title, number, color) => {
 const createTask = (data, index) => {
   const taskListContainer =
     document.getElementsByClassName("taskListContainer")[index];
-  const taskContainer = document.createElement("div");
-  const taskList = document.createElement("div");
-  const circle = document.createElement("div");
-  const task = document.createElement("p");
-  const taskButtonContainer = document.createElement("div");
-  const editButton = document.createElement("button");
-  const edit = document.createElement("div");
-  const removeButton = document.createElement("button");
-  const remove = document.createElement("div");
-
-  taskList.className = "taskList";
-  taskContainer.className = "taskContainer";
-  taskButtonContainer.className = "taskButtonContainer";
-  edit.className = "edit";
-  remove.className = "remove";
-  editButton.classList.add("button");
-  removeButton.classList.add("button");
-  circle.classList.add("circle");
-  circle.classList.add("outline");
-
-  task.innerHTML = data;
-  edit.innerHTML = editSvg;
-  remove.innerHTML = removeSvg;
+  const taskContainer = createElement("div", ["taskContainer"]);
+  const taskList = createElement("div", ["taskList"]);
+  const circle = createElement("div", ["circle", "outline"]);
+  const task = createElement("p", ["task"], data);
+  const taskButtonContainer = createElement("div", ["taskButtonContainer"]);
+  const editButton = createElement("button", ["button"]);
+  const edit = createElement("div", ["edit"], editSvg);
+  const removeButton = createElement("button", ["button"]);
+  const remove = createElement("div", ["remove"], removeSvg);
 
   editButton.appendChild(edit);
   removeButton.appendChild(remove);
@@ -149,6 +132,9 @@ const data = {
     {
       description: "study for four hours",
     },
+    {
+      description: "study for four hours",
+    },
   ],
   done: [
     {
@@ -171,13 +157,10 @@ const data = {
   ],
 };
 
-boards.map((el) => {
-  createBoard(el.title, 5, el.bgcolor);
-  console.log(el);
-});
+boards.forEach((board) => createBoard(board.title, 5, board.bgcolor));
 
 const keys = Object.keys(data);
 
-keys.map((el, index) =>
-  data[el].map((task) => createTask(task.description, index))
+keys.forEach((el, index) =>
+  data[el].forEach((task) => createTask(task.description, index))
 );
