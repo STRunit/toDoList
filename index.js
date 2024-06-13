@@ -1,13 +1,20 @@
 const body = document.getElementsByTagName("body")[0];
-const buttonContainer = document.createElement("div");
-const taskButton = document.createElement("button");
-const boardContainer = document.createElement("div");
 
-buttonContainer.className = "buttonContainer";
-taskButton.className = "taskButton";
-boardContainer.className = "boardContainer";
+const createElement = (tagName, classList, innerText = "") => {
+  const element = document.createElement(tagName);
 
-taskButton.innerText = "Add Task";
+  classList.forEach((className) => {
+    element.classList.add(className);
+  });
+
+  element.innerText = innerText;
+
+  return element;
+};
+
+const buttonContainer = createElement("div", ["buttonContainer"]);
+const taskButton = createElement("button", ["taskButton"], "Add Task");
+const boardContainer = createElement("div", ["boardContainer"]);
 
 buttonContainer.appendChild(taskButton);
 body.appendChild(buttonContainer);
@@ -36,24 +43,16 @@ const removeSvg = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" x
 `;
 
 const createBoard = (title, number, color) => {
-  const board = document.createElement("div");
-  const boardHeader = document.createElement("div");
-  const headerTitle = document.createElement("div");
-  const circle = document.createElement("div");
-  const label = document.createElement("h3");
-  const count = document.createElement("p");
-  const taskListContainer = document.createElement("div");
+  const board = createElement("div", ["board"]);
+  const boardHeader = createElement("div", ["boardHeader"]);
+  const headerTitle = createElement("div", ["headerTitle"]);
+  const circle = createElement("div", ["circle", color]);
+  const label = createElement("h3", ["label"], `${title}`);
+  const count = createElement("p", ["count"], `${number}`);
+  const taskListContainer = createElement("div", ["taskListContainer"]);
 
-  board.className = "board";
-  circle.classList.add("circle");
-  circle.classList.add(color);
-  boardHeader.className = "boardHeader";
-  headerTitle.className = "headerTitle";
-  count.className = "counter";
-  taskListContainer.className = "taskListContainer";
-
-  label.innerText = title;
-  count.innerText = number;
+  // circle.classList.add("circle");
+  // circle.classList.add(color);
 
   headerTitle.appendChild(circle);
   headerTitle.appendChild(label);
@@ -109,7 +108,7 @@ const createTask = (data, index) => {
   taskListContainer.appendChild(taskList);
 };
 
-const board = [
+const boards = [
   {
     title: "Todo",
     bgcolor: "white",
@@ -172,7 +171,7 @@ const data = {
   ],
 };
 
-board.map((el) => {
+boards.map((el) => {
   createBoard(el.title, 5, el.bgcolor);
   console.log(el);
 });
