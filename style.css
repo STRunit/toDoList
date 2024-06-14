@@ -126,3 +126,21 @@ body {
 .red {
   background-color: #a30000;
 }
+
+.backdrop {
+  width: 100vw;
+  height: 100vh;
+  background-color: #00000080;
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  justify-content: center;
+  align-items: center;
+  display: none;
+}
+
+.dialog {
+  background-color: #ffffff;
+  padding: 20px;
+}
