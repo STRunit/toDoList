@@ -146,6 +146,9 @@ const createTask = (data, index) => {
   const removeButton = createElement("button", ["button"]);
   const remove = createElement("div", ["remove"], svgs.removeSvg);
 
+  edit.addEventListener("click", () => editTask(taskList, task));
+  remove.addEventListener("click", () => removeTask(taskList));
+
   editButton.appendChild(edit);
   removeButton.appendChild(remove);
 
@@ -161,7 +164,34 @@ const createTask = (data, index) => {
   taskListContainer.appendChild(taskList);
 };
 
-const editTask = (tasklist, task) => {};
+const editTask = (taskList, task) => {
+  const input = document.createElement("input");
+
+  input.type = "text";
+  input.value = task.textContent;
+  taskList.replaceChild(task, input);
+
+  input.addEventListener("blur", () => {
+    taskList.textContent = input.value;
+    taskList.replaceChild(task, input);
+  });
+
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      input.blur();
+    }
+  });
+
+  input.focus();
+};
+
+const removeTask = (taskList) => {
+  taskList.remove();
+};
+
+const addTask = (description, boardIndex = 0) => {
+  createTask(description, boardIndex);
+};
 
 const keys = Object.keys(data);
 
@@ -169,49 +199,58 @@ keys.forEach((el, index) =>
   data[el].forEach((task) => createTask(task.description, index))
 );
 
-const backdrop = createElement("div", ["backdrop"]);
+// const backdrop = createElement("div", ["backdrop"]);
 
-const dialog = createElement("div", ["dialog"]);
-const task = createElement("div", ["task"]);
-const taskName = createElement("label", [], "Task");
-const input = createElement("input", []);
+// const dialog = createElement("div", ["dialog"]);
+// const task = createElement("div", ["task"]);
+// const taskName = createElement("label", [], "Task");
+// const input = createElement("input", []);
 
-const status = createElement("div", ["status"]);
-const taskStatus = createElement("label", [], "Task Status");
-const select = createElement("select", []);
-const todo = createElement("option", [], (value = "todo"));
-const inProgress = createElement("option", [], (value = "inProgress"));
-const done = createElement("option", [], (value = "done"));
-const blocked = createElement("option", [], (value = "blocked"));
+// const status = createElement("div", ["status"]);
+// const taskStatus = createElement("label", [], "Task Status");
+// const select = createElement("select", []);
+// const todo = createElement("option", [], (value = "todo"));
+// const inProgress = createElement("option", [], (value = "inProgress"));
+// const done = createElement("option", [], (value = "done"));
+// const blocked = createElement("option", [], (value = "blocked"));
 
-const submitButton = createElement("button", [], "Submit");
+// const submitButton = createElement("button", [], "Submit");
 
-input.setAttribute("placeholder", "Enter your task here");
+// input.setAttribute("placeholder", "Enter your task here");
 
-select.appendChild(todo);
-select.appendChild(inProgress);
-select.appendChild(done);
-select.appendChild(blocked);
+// select.appendChild(todo);
+// select.appendChild(inProgress);
+// select.appendChild(done);
+// select.appendChild(blocked);
 
-task.appendChild(taskName);
-task.appendChild(input);
+// task.appendChild(taskName);
+// task.appendChild(input);
 
-status.appendChild(taskStatus);
-status.appendChild(select);
+// status.appendChild(taskStatus);
+// status.appendChild(select);
 
-dialog.appendChild(task);
-dialog.appendChild(status);
-dialog.appendChild(submitButton);
+// dialog.appendChild(task);
+// dialog.appendChild(status);
+// dialog.appendChild(submitButton);
 
-backdrop.appendChild(dialog);
-body.appendChild(backdrop);
+// backdrop.appendChild(dialog);
+// body.appendChild(backdrop);
 
-document.querySelector("backdrop");
+// document.querySelector("backdrop");
 
-taskButton.onclick = () => {
-  backdrop.style.display = "flex";
-};
+// taskButton.onclick = () => {
+//   backdrop.style.display = "flex";
+// };
 
-submitButton.onclick = () => {
-  backdrop.style.display = "none";
-};
+// submitButton.onclick = () => {
+//   backdrop.style.display = "none";
+// };
+
+document.getElementsByClassName("taskButton")[0];
+
+taskButton.addEventListener("click", () => {
+  const description = prompt("Enter task description:");
+  if (description) {
+    addTask(description);
+  }
+});
