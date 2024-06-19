@@ -136,7 +136,6 @@ boards.forEach((board) => createBoard(board.title, 5, board.bgcolor));
 const createTask = (data, index) => {
   const taskListContainer =
     document.getElementsByClassName("taskListContainer")[index];
-  const taskContainer = createElement("div", ["taskContainer"]);
   const taskList = createElement("div", ["taskList"]);
   const circle = createElement("div", ["circle", "outline"]);
   const task = createElement("p", ["task"], data);
@@ -152,13 +151,11 @@ const createTask = (data, index) => {
   editButton.appendChild(edit);
   removeButton.appendChild(remove);
 
-  taskContainer.appendChild(circle);
-  taskContainer.appendChild(task);
-
   taskButtonContainer.appendChild(editButton);
   taskButtonContainer.appendChild(removeButton);
 
-  taskList.appendChild(taskContainer);
+  taskList.appendChild(circle);
+  taskList.appendChild(task);
   taskList.appendChild(taskButtonContainer);
 
   taskListContainer.appendChild(taskList);
@@ -169,10 +166,10 @@ const editTask = (taskList, task) => {
 
   input.type = "text";
   input.value = task.textContent;
-  taskList.replaceChild(task, input);
+  taskList.replaceChild(input, task);
 
   input.addEventListener("blur", () => {
-    taskList.textContent = input.value;
+    task.textContent = input.value;
     taskList.replaceChild(task, input);
   });
 
